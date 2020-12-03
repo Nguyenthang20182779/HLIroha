@@ -1,0 +1,10 @@
+git config --gloabal user.name = ""
+git config --gloabal user.email = ""
+
+git status
+git init
+git add . 
+git commit -m "commit to repository"
+//git log // lich su commit
+git push --set-upstream gitproject master
+git remote add gitproject http:...
