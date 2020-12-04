@@ -1,0 +1,5 @@
+sudo apt install git 
+
+sudo apt install curl
+
+curl -sSL https://bit.ly/2ysbOFE | bash -s

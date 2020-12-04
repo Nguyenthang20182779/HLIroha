@@ -2540,7 +2540,71 @@ Common Name (e.g. server FQDN or YOUR name) []:Thang
 Email Address []:thang201526@cvp.vn
 
 
-//
+//install npm
+sudo apt install nodejs
+sudo apt install npm
+//remove npm
+sudo apt remove nodejs
+sudo apt purge nodejs
+sudo apt autoremove
+nvm current
+nvm uninstall node_version
+nvm deactivate
+//Upgrade npm
+sudo npm install -g npm
+
+
+//hyperledger explorer
+git clone https://github.com/hyperledger/blockchain-explorer.git
+
+
+
+//Hyperledger Explorer
+
+
+//new user
+//install:   sudo adduser dora
+	     sudo usermod -aG sudo dora
+
+//login: su - dora
+//logout: exit
+//delete user: sudo deluser dora
+
+
+//delete container: docker rm <id container>
+//delete images: docker rmi <id images>
+
+
+
+//Hyperledger Explorer
+
+
+new user
+install:   sudo adduser dora
+	     sudo usermod -aG sudo dora
+
+login: su - dora
+logout: exit
+delete user: sudo deluser dora
+
+
+//delete container: docker rm <id container>
+//delete images: docker rmi <id images>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
