@@ -2558,27 +2558,6 @@ sudo npm install -g npm
 git clone https://github.com/hyperledger/blockchain-explorer.git
 
 
-
-//Hyperledger Explorer
-
-
-//new user
-//install:   sudo adduser dora
-	     sudo usermod -aG sudo dora
-
-//login: su - dora
-//logout: exit
-//delete user: sudo deluser dora
-
-
-//delete container: docker rm <id container>
-//delete images: docker rmi <id images>
-
-
-
-//Hyperledger Explorer
-
-
 new user
 install:   sudo adduser dora
 	     sudo usermod -aG sudo dora
