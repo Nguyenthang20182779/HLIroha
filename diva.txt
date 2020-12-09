@@ -1,0 +1,13 @@
+http://172.29.101.3:3920/
+
+git clone -b master https://codeberg.org/diva.exchange/iroha.git
+cd iroha
+
+//run docker
+sudo docker-compose up -d
+
+//stop docker
+sudo docker-compose down
+
+//stop docker all
+sudo docker-compose down --volumes

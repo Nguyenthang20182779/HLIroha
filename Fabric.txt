@@ -3,3 +3,583 @@ sudo apt install git
 sudo apt install curl
 
 curl -sSL https://bit.ly/2ysbOFE | bash -s
+
+sudo apt install golang-go
+
+
+nguyenthang@DESKTOP-QHKARTE:~/fabric-samples/fabcar$ ls
+go  java  javascript  networkDown.sh  startFabric.sh  typescript
+
+
+nguyenthang@DESKTOP-QHKARTE:~/fabric-samples/fabcar$ ./startFabric.sh
+~/fabric-samples/test-network ~/fabric-samples/fabcar
+Stopping network
+Stopping peer0.org2.example.com ... done
+Stopping peer0.org1.example.com ... done
+Stopping orderer.example.com    ... done
+Removing peer0.org2.example.com ... done
+Removing peer0.org1.example.com ... done
+Removing orderer.example.com    ... done
+Removing network net_test
+Removing volume net_orderer.example.com
+Removing volume net_peer0.org1.example.com
+Removing volume net_peer0.org2.example.com
+Removing network net_test
+WARNING: Network net_test not found.
+Removing volume net_peer0.org3.example.com
+WARNING: Volume net_peer0.org3.example.com not found.
+No containers available for deletion
+No images available for deletion
+Creating channel 'mychannel'.
+If network is not up, starting nodes with CLI timeout of '5' tries and CLI delay of '3' seconds and using database 'couchdb with crypto from 'Certificate Authorities'
+Bringing up network
+LOCAL_VERSION=2.3.0
+DOCKER_IMAGE_VERSION=2.3.0
+CA_LOCAL_VERSION=1.4.9
+CA_DOCKER_IMAGE_VERSION=1.4.9
+Generate certificates using Fabric CA's
+Creating network "net_test" with the default driver
+Creating ca_org2    ... done
+Creating ca_orderer ... done
+Creating ca_org1    ... done
+Create Org1 Identities
+Enroll the CA admin
++ fabric-ca-client enroll -u https://admin:adminpw@localhost:7054 --caname ca-org1 --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/org1/tls-cert.pem
+2020/12/07 22:32:11 [INFO] Created a default configuration file at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/fabric-ca-client-config.yaml
+2020/12/07 22:32:11 [INFO] TLS Enabled
+2020/12/07 22:32:11 [INFO] generating key: &{A:ecdsa S:256}
+2020/12/07 22:32:11 [INFO] encoded CSR
+2020/12/07 22:32:11 [INFO] Stored client certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/msp/signcerts/cert.pem
+2020/12/07 22:32:11 [INFO] Stored root CA certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/msp/cacerts/localhost-7054-ca-org1.pem
+2020/12/07 22:32:11 [INFO] Stored Issuer public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/msp/IssuerPublicKey
+2020/12/07 22:32:11 [INFO] Stored Issuer revocation public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/msp/IssuerRevocationPublicKey
+Register peer0
++ fabric-ca-client register --caname ca-org1 --id.name peer0 --id.secret peer0pw --id.type peer --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/org1/tls-cert.pem
+2020/12/07 22:32:11 [INFO] Configuration file location: /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/fabric-ca-client-config.yaml
+2020/12/07 22:32:11 [INFO] TLS Enabled
+2020/12/07 22:32:11 [INFO] TLS Enabled
+Password: peer0pw
+Register user
++ fabric-ca-client register --caname ca-org1 --id.name user1 --id.secret user1pw --id.type client --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/org1/tls-cert.pem
+2020/12/07 22:32:12 [INFO] Configuration file location: /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/fabric-ca-client-config.yaml
+2020/12/07 22:32:12 [INFO] TLS Enabled
+2020/12/07 22:32:12 [INFO] TLS Enabled
+Password: user1pw
+Register the org admin
++ fabric-ca-client register --caname ca-org1 --id.name org1admin --id.secret org1adminpw --id.type admin --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/org1/tls-cert.pem
+2020/12/07 22:32:12 [INFO] Configuration file location: /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/fabric-ca-client-config.yaml
+2020/12/07 22:32:12 [INFO] TLS Enabled
+2020/12/07 22:32:12 [INFO] TLS Enabled
+Password: org1adminpw
+Generate the peer0 msp
++ fabric-ca-client enroll -u https://peer0:peer0pw@localhost:7054 --caname ca-org1 -M /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp --csr.hosts peer0.org1.example.com --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/org1/tls-cert.pem
+2020/12/07 22:32:12 [INFO] TLS Enabled
+2020/12/07 22:32:12 [INFO] generating key: &{A:ecdsa S:256}
+2020/12/07 22:32:12 [INFO] encoded CSR
+2020/12/07 22:32:12 [INFO] Stored client certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp/signcerts/cert.pem
+2020/12/07 22:32:12 [INFO] Stored root CA certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp/cacerts/localhost-7054-ca-org1.pem
+2020/12/07 22:32:12 [INFO] Stored Issuer public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp/IssuerPublicKey
+2020/12/07 22:32:12 [INFO] Stored Issuer revocation public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp/IssuerRevocationPublicKey
+Generate the peer0-tls certificates
++ fabric-ca-client enroll -u https://peer0:peer0pw@localhost:7054 --caname ca-org1 -M /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls --enrollment.profile tls --csr.hosts peer0.org1.example.com --csr.hosts localhost --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/org1/tls-cert.pem
+2020/12/07 22:32:12 [INFO] TLS Enabled
+2020/12/07 22:32:12 [INFO] generating key: &{A:ecdsa S:256}
+2020/12/07 22:32:12 [INFO] encoded CSR
+2020/12/07 22:32:12 [INFO] Stored client certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/signcerts/cert.pem
+2020/12/07 22:32:12 [INFO] Stored TLS root CA certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/tlscacerts/tls-localhost-7054-ca-org1.pem
+2020/12/07 22:32:12 [INFO] Stored Issuer public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/IssuerPublicKey
+2020/12/07 22:32:12 [INFO] Stored Issuer revocation public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/IssuerRevocationPublicKey
+Generate the user msp
++ fabric-ca-client enroll -u https://user1:user1pw@localhost:7054 --caname ca-org1 -M /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/org1/tls-cert.pem
+2020/12/07 22:32:12 [INFO] TLS Enabled
+2020/12/07 22:32:12 [INFO] generating key: &{A:ecdsa S:256}
+2020/12/07 22:32:12 [INFO] encoded CSR
+2020/12/07 22:32:12 [INFO] Stored client certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/cert.pem
+2020/12/07 22:32:12 [INFO] Stored root CA certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/cacerts/localhost-7054-ca-org1.pem
+2020/12/07 22:32:12 [INFO] Stored Issuer public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/IssuerPublicKey
+2020/12/07 22:32:12 [INFO] Stored Issuer revocation public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/IssuerRevocationPublicKey
+Generate the org admin msp
++ fabric-ca-client enroll -u https://org1admin:org1adminpw@localhost:7054 --caname ca-org1 -M /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/org1/tls-cert.pem
+2020/12/07 22:32:12 [INFO] TLS Enabled
+2020/12/07 22:32:12 [INFO] generating key: &{A:ecdsa S:256}
+2020/12/07 22:32:12 [INFO] encoded CSR
+2020/12/07 22:32:13 [INFO] Stored client certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/cert.pem
+2020/12/07 22:32:13 [INFO] Stored root CA certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/cacerts/localhost-7054-ca-org1.pem
+2020/12/07 22:32:13 [INFO] Stored Issuer public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/IssuerPublicKey
+2020/12/07 22:32:13 [INFO] Stored Issuer revocation public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/IssuerRevocationPublicKey
+Create Org2 Identities
+Enroll the CA admin
++ fabric-ca-client enroll -u https://admin:adminpw@localhost:8054 --caname ca-org2 --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/org2/tls-cert.pem
+2020/12/07 22:32:13 [INFO] Created a default configuration file at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/fabric-ca-client-config.yaml
+2020/12/07 22:32:13 [INFO] TLS Enabled
+2020/12/07 22:32:13 [INFO] generating key: &{A:ecdsa S:256}
+2020/12/07 22:32:13 [INFO] encoded CSR
+2020/12/07 22:32:13 [INFO] Stored client certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/msp/signcerts/cert.pem
+2020/12/07 22:32:13 [INFO] Stored root CA certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/msp/cacerts/localhost-8054-ca-org2.pem
+2020/12/07 22:32:13 [INFO] Stored Issuer public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/msp/IssuerPublicKey
+2020/12/07 22:32:13 [INFO] Stored Issuer revocation public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/msp/IssuerRevocationPublicKey
+Register peer0
++ fabric-ca-client register --caname ca-org2 --id.name peer0 --id.secret peer0pw --id.type peer --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/org2/tls-cert.pem
+2020/12/07 22:32:13 [INFO] Configuration file location: /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/fabric-ca-client-config.yaml
+2020/12/07 22:32:13 [INFO] TLS Enabled
+2020/12/07 22:32:13 [INFO] TLS Enabled
+Password: peer0pw
+Register user
++ fabric-ca-client register --caname ca-org2 --id.name user1 --id.secret user1pw --id.type client --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/org2/tls-cert.pem
+2020/12/07 22:32:13 [INFO] Configuration file location: /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/fabric-ca-client-config.yaml
+2020/12/07 22:32:13 [INFO] TLS Enabled
+2020/12/07 22:32:13 [INFO] TLS Enabled
+Password: user1pw
+Register the org admin
++ fabric-ca-client register --caname ca-org2 --id.name org2admin --id.secret org2adminpw --id.type admin --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/org2/tls-cert.pem
+2020/12/07 22:32:13 [INFO] Configuration file location: /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/fabric-ca-client-config.yaml
+2020/12/07 22:32:13 [INFO] TLS Enabled
+2020/12/07 22:32:13 [INFO] TLS Enabled
+Password: org2adminpw
+Generate the peer0 msp
++ fabric-ca-client enroll -u https://peer0:peer0pw@localhost:8054 --caname ca-org2 -M /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp --csr.hosts peer0.org2.example.com --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/org2/tls-cert.pem
+2020/12/07 22:32:13 [INFO] TLS Enabled
+2020/12/07 22:32:13 [INFO] generating key: &{A:ecdsa S:256}
+2020/12/07 22:32:13 [INFO] encoded CSR
+2020/12/07 22:32:13 [INFO] Stored client certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp/signcerts/cert.pem
+2020/12/07 22:32:13 [INFO] Stored root CA certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp/cacerts/localhost-8054-ca-org2.pem
+2020/12/07 22:32:13 [INFO] Stored Issuer public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp/IssuerPublicKey
+2020/12/07 22:32:13 [INFO] Stored Issuer revocation public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp/IssuerRevocationPublicKey
+Generate the peer0-tls certificates
++ fabric-ca-client enroll -u https://peer0:peer0pw@localhost:8054 --caname ca-org2 -M /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls --enrollment.profile tls --csr.hosts peer0.org2.example.com --csr.hosts localhost --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/org2/tls-cert.pem
+2020/12/07 22:32:13 [INFO] TLS Enabled
+2020/12/07 22:32:13 [INFO] generating key: &{A:ecdsa S:256}
+2020/12/07 22:32:13 [INFO] encoded CSR
+2020/12/07 22:32:13 [INFO] Stored client certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/signcerts/cert.pem
+2020/12/07 22:32:13 [INFO] Stored TLS root CA certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/tlscacerts/tls-localhost-8054-ca-org2.pem
+2020/12/07 22:32:13 [INFO] Stored Issuer public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/IssuerPublicKey
+2020/12/07 22:32:13 [INFO] Stored Issuer revocation public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/IssuerRevocationPublicKey
+Generate the user msp
++ fabric-ca-client enroll -u https://user1:user1pw@localhost:8054 --caname ca-org2 -M /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/org2/tls-cert.pem
+2020/12/07 22:32:13 [INFO] TLS Enabled
+2020/12/07 22:32:13 [INFO] generating key: &{A:ecdsa S:256}
+2020/12/07 22:32:14 [INFO] encoded CSR
+2020/12/07 22:32:14 [INFO] Stored client certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/signcerts/cert.pem
+2020/12/07 22:32:14 [INFO] Stored root CA certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/cacerts/localhost-8054-ca-org2.pem
+2020/12/07 22:32:14 [INFO] Stored Issuer public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/IssuerPublicKey
+2020/12/07 22:32:14 [INFO] Stored Issuer revocation public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/IssuerRevocationPublicKey
+Generate the org admin msp
++ fabric-ca-client enroll -u https://org2admin:org2adminpw@localhost:8054 --caname ca-org2 -M /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/org2/tls-cert.pem
+2020/12/07 22:32:14 [INFO] TLS Enabled
+2020/12/07 22:32:14 [INFO] generating key: &{A:ecdsa S:256}
+2020/12/07 22:32:14 [INFO] encoded CSR
+2020/12/07 22:32:14 [INFO] Stored client certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/signcerts/cert.pem
+2020/12/07 22:32:14 [INFO] Stored root CA certificate at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/cacerts/localhost-8054-ca-org2.pem
+2020/12/07 22:32:14 [INFO] Stored Issuer public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/IssuerPublicKey
+2020/12/07 22:32:14 [INFO] Stored Issuer revocation public key at /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/IssuerRevocationPublicKey
+Create Orderer Org Identities
+Enroll the CA admin
++ fabric-ca-client enroll -u https://admin:adminpw@localhost:9054 --caname ca-orderer --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/ordererOrg/tls-cert.pem
+2020/12/07 22:32:14 [INFO] Created a default configuration file at /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/fabric-ca-client-config.yaml
+2020/12/07 22:32:14 [INFO] TLS Enabled
+2020/12/07 22:32:14 [INFO] generating key: &{A:ecdsa S:256}
+2020/12/07 22:32:14 [INFO] encoded CSR
+2020/12/07 22:32:14 [INFO] Stored client certificate at /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/msp/signcerts/cert.pem
+2020/12/07 22:32:14 [INFO] Stored root CA certificate at /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/msp/cacerts/localhost-9054-ca-orderer.pem
+2020/12/07 22:32:14 [INFO] Stored Issuer public key at /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/msp/IssuerPublicKey
+2020/12/07 22:32:14 [INFO] Stored Issuer revocation public key at /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/msp/IssuerRevocationPublicKey
+Register orderer
++ fabric-ca-client register --caname ca-orderer --id.name orderer --id.secret ordererpw --id.type orderer --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/ordererOrg/tls-cert.pem
+2020/12/07 22:32:14 [INFO] Configuration file location: /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/fabric-ca-client-config.yaml
+2020/12/07 22:32:14 [INFO] TLS Enabled
+2020/12/07 22:32:14 [INFO] TLS Enabled
+Password: ordererpw
+Register the orderer admin
++ fabric-ca-client register --caname ca-orderer --id.name ordererAdmin --id.secret ordererAdminpw --id.type admin --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/ordererOrg/tls-cert.pem
+2020/12/07 22:32:14 [INFO] Configuration file location: /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/fabric-ca-client-config.yaml
+2020/12/07 22:32:14 [INFO] TLS Enabled
+2020/12/07 22:32:14 [INFO] TLS Enabled
+Password: ordererAdminpw
+Generate the orderer msp
++ fabric-ca-client enroll -u https://orderer:ordererpw@localhost:9054 --caname ca-orderer -M /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp --csr.hosts orderer.example.com --csr.hosts localhost --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/ordererOrg/tls-cert.pem
+2020/12/07 22:32:14 [INFO] TLS Enabled
+2020/12/07 22:32:14 [INFO] generating key: &{A:ecdsa S:256}
+2020/12/07 22:32:14 [INFO] encoded CSR
+2020/12/07 22:32:14 [INFO] Stored client certificate at /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/signcerts/cert.pem
+2020/12/07 22:32:14 [INFO] Stored root CA certificate at /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/cacerts/localhost-9054-ca-orderer.pem
+2020/12/07 22:32:14 [INFO] Stored Issuer public key at /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/IssuerPublicKey
+2020/12/07 22:32:14 [INFO] Stored Issuer revocation public key at /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/IssuerRevocationPublicKey
+Generate the orderer-tls certificates
++ fabric-ca-client enroll -u https://orderer:ordererpw@localhost:9054 --caname ca-orderer -M /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls --enrollment.profile tls --csr.hosts orderer.example.com --csr.hosts localhost --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/ordererOrg/tls-cert.pem
+2020/12/07 22:32:14 [INFO] TLS Enabled
+2020/12/07 22:32:14 [INFO] generating key: &{A:ecdsa S:256}
+2020/12/07 22:32:14 [INFO] encoded CSR
+2020/12/07 22:32:15 [INFO] Stored client certificate at /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/signcerts/cert.pem
+2020/12/07 22:32:15 [INFO] Stored TLS root CA certificate at /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/tlscacerts/tls-localhost-9054-ca-orderer.pem
+2020/12/07 22:32:15 [INFO] Stored Issuer public key at /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/IssuerPublicKey
+2020/12/07 22:32:15 [INFO] Stored Issuer revocation public key at /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/IssuerRevocationPublicKey
+Generate the admin msp
++ fabric-ca-client enroll -u https://ordererAdmin:ordererAdminpw@localhost:9054 --caname ca-orderer -M /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/users/Admin@example.com/msp --tls.certfiles /home/nguyenthang/fabric-samples/test-network/organizations/fabric-ca/ordererOrg/tls-cert.pem
+2020/12/07 22:32:15 [INFO] TLS Enabled
+2020/12/07 22:32:15 [INFO] generating key: &{A:ecdsa S:256}
+2020/12/07 22:32:15 [INFO] encoded CSR
+2020/12/07 22:32:15 [INFO] Stored client certificate at /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/users/Admin@example.com/msp/signcerts/cert.pem
+2020/12/07 22:32:15 [INFO] Stored root CA certificate at /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/users/Admin@example.com/msp/cacerts/localhost-9054-ca-orderer.pem
+2020/12/07 22:32:15 [INFO] Stored Issuer public key at /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/users/Admin@example.com/msp/IssuerPublicKey
+2020/12/07 22:32:15 [INFO] Stored Issuer revocation public key at /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/users/Admin@example.com/msp/IssuerRevocationPublicKey
+Generate CCP files for Org1 and Org2
+/home/nguyenthang/fabric-samples/test-network/../bin/configtxgen
+Generating Orderer Genesis block
++ configtxgen -profile TwoOrgsOrdererGenesis -channelID system-channel -outputBlock ./system-genesis-block/genesis.block2020-12-07 22:32:15.301 +07 [common.tools.configtxgen] main -> INFO 001 Loading configuration
+2020-12-07 22:32:15.308 +07 [common.tools.configtxgen.localconfig] completeInitialization -> INFO 002 orderer type: etcdraft
+2020-12-07 22:32:15.308 +07 [common.tools.configtxgen.localconfig] completeInitialization -> INFO 003 Orderer.EtcdRaft.Options unset, setting to tick_interval:"500ms" election_tick:10 heartbeat_tick:1 max_inflight_blocks:5 snapshot_interval_size:16777216
+2020-12-07 22:32:15.308 +07 [common.tools.configtxgen.localconfig] Load -> INFO 004 Loaded configuration: /home/nguyenthang/fabric-samples/test-network/configtx/configtx.yaml
+2020-12-07 22:32:15.310 +07 [common.tools.configtxgen] doOutputBlock -> INFO 005 Generating genesis block
+2020-12-07 22:32:15.310 +07 [common.tools.configtxgen] doOutputBlock -> INFO 006 Creating system channel genesis block
+2020-12-07 22:32:15.310 +07 [common.tools.configtxgen] doOutputBlock -> INFO 007 Writing genesis block
++ res=0
+Creating volume "net_orderer.example.com" with default driver
+Creating volume "net_peer0.org1.example.com" with default driver
+Creating volume "net_peer0.org2.example.com" with default driver
+WARNING: Found orphan containers (ca_org1, ca_org2, ca_orderer) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.
+Pulling couchdb0 (couchdb:3.1.1)...
+3.1.1: Pulling from library/couchdb
+852e50cd189d: Pull complete
+322f96e7be50: Pull complete
+262bec889258: Pull complete
+29b9d158db8a: Pull complete
+7c72b2efdea7: Pull complete
+110e6db7fd12: Pull complete
+9825dab89339: Pull complete
+e7cdc95b1e0d: Pull complete
+5d05a4aba437: Pull complete
+64299fcc5fbc: Pull complete
+ac1678db0fbc: Pull complete
+Digest: sha256:033d1cb88b8e0bdde67541dfd24d5d58fd99952202136d84b35406dd3fe4815d
+Status: Downloaded newer image for couchdb:3.1.1
+Creating orderer.example.com    ... done
+Creating couchdb0            ... done
+Creating couchdb1               ... done
+Creating peer0.org1.example.com ... done
+Creating peer0.org2.example.com ... done
+CONTAINER ID        IMAGE                               COMMAND                  CREATED             STATUS                    PORTS                                        NAMES
+5d5344d4cda3        hyperledger/fabric-peer:latest      "peer node start"        2 seconds ago       Up Less than a second     7051/tcp, 0.0.0.0:9051->9051/tcp             peer0.org2.example.com
+535002b60a01        hyperledger/fabric-peer:latest      "peer node start"        2 seconds ago       Up Less than a second     0.0.0.0:7051->7051/tcp                       peer0.org1.example.com
+cb9a1f8b6dd8        couchdb:3.1.1                       "tini -- /docker-ent…"   4 seconds ago       Up 1 second               4369/tcp, 9100/tcp, 0.0.0.0:7984->5984/tcp   couchdb1
+438ea2b67884        couchdb:3.1.1                       "tini -- /docker-ent…"   4 seconds ago       Up 2 seconds              4369/tcp, 9100/tcp, 0.0.0.0:5984->5984/tcp   couchdb0
+20adc858bcae        hyperledger/fabric-orderer:latest   "orderer"                4 seconds ago       Up 1 second               0.0.0.0:7050->7050/tcp                       orderer.example.com
+fe05a01fa4d4        hyperledger/fabric-ca:latest        "sh -c 'fabric-ca-se…"   27 seconds ago      Up 25 seconds             0.0.0.0:7054->7054/tcp                       ca_org1
+85097b9684cc        hyperledger/fabric-ca:latest        "sh -c 'fabric-ca-se…"   27 seconds ago      Up 25 seconds             7054/tcp, 0.0.0.0:9054->9054/tcp             ca_orderer
+cd6a8ba5359d        hyperledger/fabric-ca:latest        "sh -c 'fabric-ca-se…"   27 seconds ago      Up 26 seconds             7054/tcp, 0.0.0.0:8054->8054/tcp             ca_org2
+65e85d608e61        postgres:9.5                        "docker-entrypoint.s…"   4 days ago          Exited (255) 2 days ago   0.0.0.0:5432->5432/tcp                       some-postgres
+17d7f2736a2a        hyperledger/iroha:latest            "/entrypoint.sh iroh…"   4 days ago          Exited (255) 2 days ago   0.0.0.0:50051->50051/tcp                     iroha
+009f1ad0ed01        alpine/git:latest                   "git --help"             10 days ago         Exited (0) 4 days ago                                                  condescending_brown
+a1a850843b6f        alpine/git                          "git clone https://g…"   11 days ago         Exited (128) 4 days ago                                                repo
+Generating channel create transaction 'mychannel.tx'
++ configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/mychannel.tx -channelID mychannel
+2020-12-07 22:32:36.319 +07 [common.tools.configtxgen] main -> INFO 001 Loading configuration
+2020-12-07 22:32:36.333 +07 [common.tools.configtxgen.localconfig] Load -> INFO 002 Loaded configuration: /home/nguyenthang/fabric-samples/test-network/configtx/configtx.yaml
+2020-12-07 22:32:36.333 +07 [common.tools.configtxgen] doOutputChannelCreateTx -> INFO 003 Generating new channel configtx
+2020-12-07 22:32:36.338 +07 [common.tools.configtxgen] doOutputChannelCreateTx -> INFO 004 Writing new channel tx
++ res=0
+Generating anchor peer update transactions
+Generating anchor peer update transaction for Org1MSP
++ configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID mychannel -asOrg Org1MSP
+2020-12-07 22:32:36.372 +07 [common.tools.configtxgen] main -> INFO 001 Loading configuration
+2020-12-07 22:32:36.385 +07 [common.tools.configtxgen.localconfig] Load -> INFO 002 Loaded configuration: /home/nguyenthang/fabric-samples/test-network/configtx/configtx.yaml
+2020-12-07 22:32:36.386 +07 [common.tools.configtxgen] doOutputAnchorPeersUpdate -> INFO 003 Generating anchor peer update
+2020-12-07 22:32:36.389 +07 [common.tools.configtxgen] doOutputAnchorPeersUpdate -> INFO 004 Writing anchor peer update
++ res=0
+Generating anchor peer update transaction for Org2MSP
++ configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID mychannel -asOrg Org2MSP
+2020-12-07 22:32:36.421 +07 [common.tools.configtxgen] main -> INFO 001 Loading configuration
+2020-12-07 22:32:36.435 +07 [common.tools.configtxgen.localconfig] Load -> INFO 002 Loaded configuration: /home/nguyenthang/fabric-samples/test-network/configtx/configtx.yaml
+2020-12-07 22:32:36.435 +07 [common.tools.configtxgen] doOutputAnchorPeersUpdate -> INFO 003 Generating anchor peer update
+2020-12-07 22:32:36.438 +07 [common.tools.configtxgen] doOutputAnchorPeersUpdate -> INFO 004 Writing anchor peer update
++ res=0
+Creating channel mychannel
+Using organization 1
++ peer channel create -o localhost:7050 -c mychannel --ordererTLSHostnameOverride orderer.example.com -f ./channel-artifacts/mychannel.tx --outputBlock ./channel-artifacts/mychannel.block --tls --cafile /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
++ res=0
+2020-12-07 22:32:39.494 +07 [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2020-12-07 22:32:39.513 +07 [cli.common] readBlock -> INFO 002 Expect block, but got status: &{NOT_FOUND}
+2020-12-07 22:32:39.517 +07 [channelCmd] InitCmdFactory -> INFO 003 Endorser and orderer connections initialized
+2020-12-07 22:32:39.723 +07 [cli.common] readBlock -> INFO 004 Expect block, but got status: &{SERVICE_UNAVAILABLE}
+2020-12-07 22:32:39.734 +07 [channelCmd] InitCmdFactory -> INFO 005 Endorser and orderer connections initialized
+2020-12-07 22:32:39.937 +07 [cli.common] readBlock -> INFO 006 Expect block, but got status: &{SERVICE_UNAVAILABLE}
+2020-12-07 22:32:39.944 +07 [channelCmd] InitCmdFactory -> INFO 007 Endorser and orderer connections initialized
+2020-12-07 22:32:40.146 +07 [cli.common] readBlock -> INFO 008 Expect block, but got status: &{SERVICE_UNAVAILABLE}
+2020-12-07 22:32:40.150 +07 [channelCmd] InitCmdFactory -> INFO 009 Endorser and orderer connections initialized
+2020-12-07 22:32:40.353 +07 [cli.common] readBlock -> INFO 00a Expect block, but got status: &{SERVICE_UNAVAILABLE}
+2020-12-07 22:32:40.358 +07 [channelCmd] InitCmdFactory -> INFO 00b Endorser and orderer connections initialized
+2020-12-07 22:32:40.563 +07 [cli.common] readBlock -> INFO 00c Expect block, but got status: &{SERVICE_UNAVAILABLE}
+2020-12-07 22:32:40.574 +07 [channelCmd] InitCmdFactory -> INFO 00d Endorser and orderer connections initialized
+2020-12-07 22:32:40.789 +07 [cli.common] readBlock -> INFO 00e Received block: 0
+Channel 'mychannel' created
+Join Org1 peers to the channel...
+Using organization 1
++ peer channel join -b ./channel-artifacts/mychannel.block
++ res=0
+2020-12-07 22:32:43.879 +07 [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2020-12-07 22:32:44.886 +07 [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
+Join Org2 peers to the channel...
+Using organization 2
++ peer channel join -b ./channel-artifacts/mychannel.block
++ res=0
+2020-12-07 22:32:47.983 +07 [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2020-12-07 22:32:48.350 +07 [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
+Updating anchor peers for org1...
+Using organization 1
++ peer channel update -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com -c mychannel -f ./channel-artifacts/Org1MSPanchors.tx --tls --cafile /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
++ res=0
+2020-12-07 22:32:51.434 +07 [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2020-12-07 22:32:51.454 +07 [channelCmd] update -> INFO 002 Successfully submitted channel update
+Anchor peers updated for org 'Org1MSP' on channel 'mychannel'
+Updating anchor peers for org2...
+Using organization 2
++ peer channel update -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com -c mychannel -f ./channel-artifacts/Org2MSPanchors.tx --tls --cafile /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
++ res=0
+2020-12-07 22:32:57.536 +07 [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2020-12-07 22:32:57.549 +07 [channelCmd] update -> INFO 002 Successfully submitted channel update
+Anchor peers updated for org 'Org2MSP' on channel 'mychannel'
+Channel successfully joined
+deploying chaincode on channel 'mychannel'
+executing with the following
+- CHANNEL_NAME: mychannel
+- CC_NAME: fabcar
+- CC_SRC_PATH: ../chaincode/fabcar/go/
+- CC_SRC_LANGUAGE: go
+- CC_VERSION: 1
+- CC_SEQUENCE: 1
+- CC_END_POLICY: NA
+- CC_COLL_CONFIG: NA
+- CC_INIT_FCN: initLedger
+- DELAY: 3
+- MAX_RETRY: 5
+- VERBOSE: false
+Vendoring Go dependencies at ../chaincode/fabcar/go/
+~/fabric-samples/chaincode/fabcar/go ~/fabric-samples/test-network
+~/fabric-samples/test-network
+Finished vendoring Go dependencies
++ peer lifecycle chaincode package fabcar.tar.gz --path ../chaincode/fabcar/go/ --lang golang --label fabcar_1
++ res=0
+Chaincode is packaged
+Installing chaincode on peer0.org1...
+Using organization 1
++ peer lifecycle chaincode install fabcar.tar.gz
++ res=0
+2020-12-07 22:33:16.002 +07 [cli.lifecycle.chaincode] submitInstallProposal -> INFO 001 Installed remotely: response:<status:200 payload:"\nIfabcar_1:762e0fe3dbeee0f7b08fb6200adeb4a3a20f649a00f168c0b3c2257e53b6e506\022\010fabcar_1" >
+2020-12-07 22:33:16.002 +07 [cli.lifecycle.chaincode] submitInstallProposal -> INFO 002 Chaincode code package identifier: fabcar_1:762e0fe3dbeee0f7b08fb6200adeb4a3a20f649a00f168c0b3c2257e53b6e506
+Chaincode is installed on peer0.org1
+Install chaincode on peer0.org2...
+Using organization 2
++ peer lifecycle chaincode install fabcar.tar.gz
++ res=0
+2020-12-07 22:33:29.480 +07 [cli.lifecycle.chaincode] submitInstallProposal -> INFO 001 Installed remotely: response:<status:200 payload:"\nIfabcar_1:762e0fe3dbeee0f7b08fb6200adeb4a3a20f649a00f168c0b3c2257e53b6e506\022\010fabcar_1" >
+2020-12-07 22:33:29.480 +07 [cli.lifecycle.chaincode] submitInstallProposal -> INFO 002 Chaincode code package identifier: fabcar_1:762e0fe3dbeee0f7b08fb6200adeb4a3a20f649a00f168c0b3c2257e53b6e506
+Chaincode is installed on peer0.org2
+Using organization 1
++ peer lifecycle chaincode queryinstalled
++ res=0
+Installed chaincodes on peer:
+Package ID: fabcar_1:762e0fe3dbeee0f7b08fb6200adeb4a3a20f649a00f168c0b3c2257e53b6e506, Label: fabcar_1
+Query installed successful on peer0.org1 on channel
+Using organization 1
++ peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem --channelID mychannel --name fabcar --version 1 --package-id fabcar_1:762e0fe3dbeee0f7b08fb6200adeb4a3a20f649a00f168c0b3c2257e53b6e506 --sequence 1 --init-required
++ res=0
+2020-12-07 22:33:32.037 +07 [chaincodeCmd] ClientWait -> INFO 001 txid [4b1dec6da69c4c8d8c0a1061c0734be424d9a0a9321c862ae7bfab57d8fd7d49] committed with status (VALID) at localhost:7051
+Chaincode definition approved on peer0.org1 on channel 'mychannel'
+Using organization 1
+Checking the commit readiness of the chaincode definition on peer0.org1 on channel 'mychannel'...
+Attempting to check the commit readiness of the chaincode definition on peer0.org1, Retry after 3 seconds.
++ peer lifecycle chaincode checkcommitreadiness --channelID mychannel --name fabcar --version 1 --sequence 1 --init-required --output json
++ res=0
+{
+        "approvals": {
+                "Org1MSP": true,
+                "Org2MSP": false
+        }
+}
+Checking the commit readiness of the chaincode definition successful on peer0.org1 on channel 'mychannel'
+Using organization 2
+Checking the commit readiness of the chaincode definition on peer0.org2 on channel 'mychannel'...
+Attempting to check the commit readiness of the chaincode definition on peer0.org2, Retry after 3 seconds.
++ peer lifecycle chaincode checkcommitreadiness --channelID mychannel --name fabcar --version 1 --sequence 1 --init-required --output json
++ res=0
+{
+        "approvals": {
+                "Org1MSP": true,
+                "Org2MSP": false
+        }
+}
+Checking the commit readiness of the chaincode definition successful on peer0.org2 on channel 'mychannel'
+Using organization 2
++ peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem --channelID mychannel --name fabcar --version 1 --package-id fabcar_1:762e0fe3dbeee0f7b08fb6200adeb4a3a20f649a00f168c0b3c2257e53b6e506 --sequence 1 --init-required
++ res=0
+2020-12-07 22:33:40.771 +07 [chaincodeCmd] ClientWait -> INFO 001 txid [173ef1cdea715e01045ef8fe0de05a3eb66ce1e9c45771454366cd7f80a14780] committed with status (VALID) at localhost:9051
+Chaincode definition approved on peer0.org2 on channel 'mychannel'
+Using organization 1
+Checking the commit readiness of the chaincode definition on peer0.org1 on channel 'mychannel'...
+Attempting to check the commit readiness of the chaincode definition on peer0.org1, Retry after 3 seconds.
++ peer lifecycle chaincode checkcommitreadiness --channelID mychannel --name fabcar --version 1 --sequence 1 --init-required --output json
++ res=0
+{
+        "approvals": {
+                "Org1MSP": true,
+                "Org2MSP": true
+        }
+}
+Checking the commit readiness of the chaincode definition successful on peer0.org1 on channel 'mychannel'
+Using organization 2
+Checking the commit readiness of the chaincode definition on peer0.org2 on channel 'mychannel'...
+Attempting to check the commit readiness of the chaincode definition on peer0.org2, Retry after 3 seconds.
++ peer lifecycle chaincode checkcommitreadiness --channelID mychannel --name fabcar --version 1 --sequence 1 --init-required --output json
++ res=0
+{
+        "approvals": {
+                "Org1MSP": true,
+                "Org2MSP": true
+        }
+}
+Checking the commit readiness of the chaincode definition successful on peer0.org2 on channel 'mychannel'
+Using organization 1
+Using organization 2
++ peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem --channelID mychannel --name fabcar --peerAddresses localhost:7051 --tlsRootCertFiles /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt --version 1 --sequence 1 --init-required
++ res=0
+2020-12-07 22:33:49.777 +07 [chaincodeCmd] ClientWait -> INFO 001 txid [c15186d76f224a6127ab3b53c88c7cd1b27c93409ac074c245aa8ccdd0e66f49] committed with status (VALID) at localhost:7051
+2020-12-07 22:33:49.795 +07 [chaincodeCmd] ClientWait -> INFO 002 txid [c15186d76f224a6127ab3b53c88c7cd1b27c93409ac074c245aa8ccdd0e66f49] committed with status (VALID) at localhost:9051
+Chaincode definition committed on channel 'mychannel'
+Using organization 1
+Querying chaincode definition on peer0.org1 on channel 'mychannel'...
+Attempting to Query committed status on peer0.org1, Retry after 3 seconds.
++ peer lifecycle chaincode querycommitted --channelID mychannel --name fabcar
++ res=0
+Committed chaincode definition for chaincode 'fabcar' on channel 'mychannel':
+Version: 1, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc, Approvals: [Org1MSP: true, Org2MSP: true]
+Query chaincode definition successful on peer0.org1 on channel 'mychannel'
+Using organization 2
+Querying chaincode definition on peer0.org2 on channel 'mychannel'...
+Attempting to Query committed status on peer0.org2, Retry after 3 seconds.
++ peer lifecycle chaincode querycommitted --channelID mychannel --name fabcar
++ res=0
+Committed chaincode definition for chaincode 'fabcar' on channel 'mychannel':
+Version: 1, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc, Approvals: [Org1MSP: true, Org2MSP: true]
+Query chaincode definition successful on peer0.org2 on channel 'mychannel'
+Using organization 1
+Using organization 2
++ fcn_call='{"function":"initLedger","Args":[]}'
++ infoln 'invoke fcn call:{"function":"initLedger","Args":[]}'
++ println '\033[0;34minvoke fcn call:{"function":"initLedger","Args":[]}\033[0m'
++ echo -e '\033[0;34minvoke fcn call:{"function":"initLedger","Args":[]}\033[0m'
+invoke fcn call:{"function":"initLedger","Args":[]}
++ peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile /home/nguyenthang/fabric-samples/test-network/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n fabcar --peerAddresses localhost:7051 --tlsRootCertFiles /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles /home/nguyenthang/fabric-samples/test-network/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt --isInit -c '{"function":"initLedger","Args":[]}'
++ res=0
+2020-12-07 22:33:56.588 +07 [chaincodeCmd] chaincodeInvokeOrQuery -> INFO 001 Chaincode invoke successful. result: status:200
+Invoke transaction successful on peer0.org1 peer0.org2 on channel 'mychannel'
+~/fabric-samples/fabcar
+
+Total setup execution time : 121 secs ...
+
+Next, use the FabCar applications to interact with the deployed FabCar contract.
+The FabCar applications are available in multiple programming languages.
+Follow the instructions for the programming language of your choice:
+
+JavaScript:
+
+  Start by changing into the "javascript" directory:
+    cd javascript
+
+  Next, install all required packages:
+    npm install
+
+  Then run the following applications to enroll the admin user, and register a new user
+  called appUser which will be used by the other applications to interact with the deployed
+  FabCar contract:
+    node enrollAdmin
+    node registerUser
+
+  You can run the invoke application as follows. By default, the invoke application will
+  create a new car, but you can update the application to submit other transactions:
+    node invoke
+
+  You can run the query application as follows. By default, the query application will
+  return all cars, but you can update the application to evaluate other transactions:
+    node query
+
+TypeScript:
+
+  Start by changing into the "typescript" directory:
+    cd typescript
+
+  Next, install all required packages:
+    npm install
+
+  Next, compile the TypeScript code into JavaScript:
+    npm run build
+
+  Then run the following applications to enroll the admin user, and register a new user
+  called appUser which will be used by the other applications to interact with the deployed
+  FabCar contract:
+    node dist/enrollAdmin
+    node dist/registerUser
+
+  You can run the invoke application as follows. By default, the invoke application will
+  create a new car, but you can update the application to submit other transactions:
+    node dist/invoke
+
+  You can run the query application as follows. By default, the query application will
+  return all cars, but you can update the application to evaluate other transactions:
+    node dist/query
+
+Java:
+
+  Start by changing into the "java" directory:
+    cd java
+
+  Then, install dependencies and run the test using:
+    mvn test
+
+  The test will invoke the sample client app which perform the following:
+    - Enroll admin and appUser and import them into the wallet (if they don't already exist there)
+    - Submit a transaction to create a new car
+    - Evaluate a transaction (query) to return details of this car
+    - Submit a transaction to change the owner of this car
+    - Evaluate a transaction (query) to return the updated details of this car
+
+Go:
+
+  Start by changing into the "go" directory:
+    cd go
+
+  Then, install dependencies and run the test using:
+    go run fabcar.go
+
+  The test will invoke the sample client app which perform the following:
+    - Import user credentials into the wallet (if they don't already exist there)
+    - Submit a transaction to create a new car
+    - Evaluate a transaction (query) to return details of this car
+    - Submit a transaction to change the owner of this car
+    - Evaluate a transaction (query) to return the updated details of this car
+
+
+
+//test error using logspout
+nguyenthang@DESKTOP-QHKARTE:~/fabric-samples/commercial-paper/organization/digibank/configuration/cli$ ./monitordocker.sh net_test
+Starting monitoring on all containers on the network net_test
+
+
+//hyperledger explorer with fabric
+cd fabric-samples
+git clone https://github.com/hyperledger/blockchain-explorer.git
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
