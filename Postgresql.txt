@@ -1,0 +1,72 @@
+//install and use postgresql
+
+sudo apt update
+
+sudo apt-get install postgresql postgresql-contrib
+
+ls /etc/postgresql/12/main
+conf.d  environment  pg_ctl.conf  pg_hba.conf  pg_ident.conf  postgresql.conf  start.conf
+
+sudo service postgresql start
+
+//check
+pg_lsclusters
+Ver Cluster Port Status Owner    Data directory              Log file
+12  main    5432 online postgres /var/lib/postgresql/12/main /var/log/postgresql/postgresql-12-main.log
+
+
+//
+service postgresql
+Usage: /etc/init.d/postgresql {start|stop|restart|reload|force-reload|status} [version ..]
+
+service postgresql status
+12/main (port 5432): online
+
+sudo su postgres
+
+postgres@DESKTOP-QHKARTE:/home/nguyenthang$ psql
+psql (12.5 (Ubuntu 12.5-0ubuntu0.20.04.1))
+Type "help" for help.
+
+postgres=# \l
+                              List of databases
+   Name    |  Owner   | Encoding | Collate |  Ctype  |   Access privileges
+-----------+----------+----------+---------+---------+-----------------------
+ postgres  | postgres | UTF8     | C.UTF-8 | C.UTF-8 |
+ template0 | postgres | UTF8     | C.UTF-8 | C.UTF-8 | =c/postgres          +
+           |          |          |         |         | postgres=CTc/postgres
+ template1 | postgres | UTF8     | C.UTF-8 | C.UTF-8 | =c/postgres          +
+           |          |          |         |         | postgres=CTc/postgres
+(3 rows)
+
+postgres=# \du
+                                   List of roles
+ Role name |                         Attributes                         | Member of
+-----------+------------------------------------------------------------+-----------
+ postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+
+postgres=# ALTER USER postgres WITH PASSWORD 'test123';
+ALTER ROLE
+
+postgres=# CREATE USER user_1 WITH PASSWORD 'test123';
+CREATE ROLE
+
+postgres=# \du
+                                   List of roles
+ Role name |                         Attributes                         | Member of
+-----------+------------------------------------------------------------+-----------
+ postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+ user_1    |                                                            | {}
+
+
+
+
+
+
+
+
+
+
+
+
+
