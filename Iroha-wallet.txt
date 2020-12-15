@@ -1,3 +1,8 @@
+
+//install enssential apps
+sudo apt-get -y --no-install-recommends install build-essential git ca-certificates tar curl unzip cmake vim ninja-build -y
+
+
 //install yarn
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
@@ -13,11 +18,145 @@ docker-compose -f docker/docker-compose.yaml up
 (wallet-js-iorha-postgres-
 wallet-js-iroha-            //port:50051
 wallet-js-grpcwebproxy-     //localhost:8080  )
+WARNING: The SUBNET variable is not set. Defaulting to a blank string.
+Creating network "wallet-js-" with the default driver
+Pulling wallet-js-iroha-postgres (postgres:9.5)...
+9.5: Pulling from library/postgres
+e50c3c9ef5a2: Pull complete
+fad6bf221c02: Pull complete
+0dcec84eca9f: Pull complete
+a24f79fe54f5: Pull complete
+71577bc8bcc3: Pull complete
+88bf41ecdbbc: Pull complete
+ada30a92552b: Pull complete
+834f3991a1d6: Pull complete
+bf647e33dc9a: Pull complete
+580227dae43a: Pull complete
+Stopping wallet-js-iroha-postgres- ... done
+e42f1c8fca48: Pull complete
+848d29439d61: Pull complete
+Digest: sha256:a1be656c7b89cb3fc5fd7ee22d840319d9a93ed31ef8989fd1c6c298efc3df6a
+Status: Downloaded newer image for postgres:9.5
+Pulling wallet-js-iroha (hyperledger/iroha:1.0.0_rc4-hotfix1)...
+1.0.0_rc4-hotfix1: Pulling from hyperledger/iroha
+7b722c1070cd: Pull complete
+5fbf74db61f1: Pull complete
+ed41cb72e5c9: Pull complete
+7ea47a67709e: Pull complete
+ce03be1d46e8: Pull complete
+d29b437bb30c: Pull complete
+db4899bf075a: Pull complete
+50bb8606b973: Pull complete
+239643234d78: Pull complete
+Digest: sha256:b09576023f8533c9dddca90a65177e56728512a6ef01af45dca84b65c3b331b7
+Status: Downloaded newer image for hyperledger/iroha:1.0.0_rc4-hotfix1
+Building grpcwebproxy
+Step 1/19 : FROM golang as gobin
+latest: Pulling from library/golang
+6c33745f49b4: Pull complete
+c87cd3c61e27: Pull complete
+05a3c799ec37: Pull complete
+a61c38f966ac: Pull complete
+d4b8e149312b: Pull complete
+fedbb005e3b5: Pull complete
+e75b02aaf708: Pull complete
+Digest: sha256:6aae7ccbd3e0094e5c650480406d723123e30c9cbf84cb344dfc713fff402262
+Status: Downloaded newer image for golang:latest
+ ---> 4c3ed2f0a91d
+Step 2/19 : WORKDIR /go/src/github.com/improbable-eng
+ ---> Running in bcf295bcb6ee
+Removing intermediate container bcf295bcb6ee
+ ---> 551cce4e587f
+Step 3/19 : RUN git clone https://github.com/improbable-eng/grpc-web.git
+ ---> Running in f613913a3caf
+Cloning into 'grpc-web'...
+Removing intermediate container f613913a3caf
+ ---> 427355c66eba
+Step 4/19 : WORKDIR /go/src/github.com/improbable-eng/grpc-web
+ ---> Running in 7ec9715809a8
+Removing intermediate container 7ec9715809a8
+ ---> 3ae4ffbafff4
+Step 5/19 : RUN go get github.com/golang/dep/cmd/dep
+ ---> Running in a6c4c29c1a49
+Removing intermediate container a6c4c29c1a49
+ ---> c0a2cb9dcc60
+Step 6/19 : RUN dep ensure
+ ---> Running in 88bf98c5cb5a
+Removing intermediate container 88bf98c5cb5a
+ ---> 2fccff2dfa0e
+Step 7/19 : WORKDIR /go/src/github.com/improbable-eng/grpc-web/go/grpcwebproxy
+ ---> Running in c6f641da3744
+Removing intermediate container c6f641da3744
+ ---> 973d892f3ff2
+Step 8/19 : ENV CGO_ENABLED='0' GOOS='linux'
+ ---> Running in 61b848a7bc58
+Removing intermediate container 61b848a7bc58
+ ---> 30ff5c7414a8
+Step 9/19 : RUN go install
+ ---> Running in 767f7141d38a
+Removing intermediate container 767f7141d38a
+ ---> 95cb16027af4
+
+Step 10/19 : FROM alpine as certs
+latest: Pulling from library/alpine
+05e7bc50f07f: Pull complete
+Digest: sha256:a126728cb7db157f0deb377bcba3c5e473e612d7bafc27f6bb4e5e083f9f08c2
+Status: Downloaded newer image for alpine:latest
+ ---> b14afc6dfb98
+Step 11/19 : RUN apk update
+ ---> Running in f0ad7c914438
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
+v3.12.2-16-g7439663916 [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
+v3.12.2-17-g25bd54f97d [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
+OK: 12747 distinct packages available
+Removing intermediate container f0ad7c914438
+ ---> 379e5658cdf2
+Step 12/19 : RUN apk add ca-certificates
+ ---> Running in 1b52dbd659ee
+(1/1) Installing ca-certificates (20191127-r4)
+Executing busybox-1.31.1-r19.trigger
+Executing ca-certificates-20191127-r4.trigger
+OK: 6 MiB in 15 packages
+Removing intermediate container 1b52dbd659ee
+ ---> 8fc88c0db2cf
+
+Step 13/19 : FROM scratch
+ --->
+Step 14/19 : COPY --from=gobin ["/go/bin/grpcwebproxy", "/bin/"]
+ ---> de6f7ad6d8e1
+Step 15/19 : COPY --from=gobin ["/go/src/github.com/improbable-eng/grpc-web/misc/localhost.*", "/misc/"]
+ ---> 9ee5aad3af5e
+Step 16/19 : COPY --from=certs ["/etc/ssl/*", "/etc/ssl/"]
+ ---> 2754e97ff6aa
+Step 17/19 : EXPOSE 8080 8443
+ ---> Running in 6ee1cdb02146
+Removing intermediate container 6ee1cdb02146
+ ---> 9d9e41a9894d
+Step 18/19 : ENTRYPOINT ["/bin/grpcwebproxy"]
+ ---> Running in fabbe6e5645a
+Removing intermediate container fabbe6e5645a
+ ---> f50719135e9f
+Step 19/19 : CMD ["--server_tls_cert_file=/misc/localhost.crt",      "--server_tls_key_file=/misc/localhost.key",      "--backend_addr=dev.localdomain:50051",      "--backend_tls_noverify"]
+ ---> Running in b12b68be863b
+Removing intermediate container b12b68be863b
+ ---> 5c43c85a2d05
+
+Successfully built 5c43c85a2d05
+Successfully tagged docker_grpcwebproxy:latest
+WARNING: Image for service grpcwebproxy was built because it did not already exist. To rebuild this image you must use `docker-compose build` or `docker-compose up --build`.
+Creating wallet-js-iroha-postgres- ... done
+Creating wallet-js-iroha-          ... done
+Creating wallet-js-grpcwebproxy-   ... done
+Attaching to wallet-js-iroha-postgres-, wallet-js-iroha-, wallet-js-grpcwebproxy-
+wallet-js-grpcwebproxy-     | WARNING: no logs are available with the 'none' log driver
+wallet-js-iroha-            | WARNING: no logs are available with the 'none' log driver
+wallet-js-iroha-postgres-   | WARNING: no logs are available with the 'none' log driver
+
 
 
 
 //
-
 npm install
 
 
@@ -67,7 +206,7 @@ undefined
 ### DONE ###
 
 
-//build network, test localhost:8080
+//build network, test localhost:8081
 
 
 nguyenthang@DESKTOP-G9FF519:~/iroha-wallet-js$ yarn install
@@ -109,6 +248,13 @@ $ vue-cli-service serve --open
 
 
 //
+http://localhost:8080/#/login
+
+Username = admin@iroha
+Private Key                         //using in docker
+Node IP = http://localhost:8081
+
+
 
 
 
