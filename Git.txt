@@ -1,5 +1,6 @@
-git config --gloabal user.name = ""
-git config --gloabal user.email = ""
+git config --global user.email = ""
+git config --global user.name = ""
+
 
 git init
 

@@ -1,0 +1,13 @@
+C:\Users\Sotanext>wsl -l -v
+  NAME                   STATE           VERSION
+* Ubuntu-20.04           Stopped         1
+  docker-desktop-data    Running         2
+  docker-desktop         Running         2
+
+C:\Users\Sotanext>wsl --set-version Ubuntu 2
+There is no distribution with the supplied name.
+
+C:\Users\Sotanext>wsl --set-version Ubuntu-20.04 2
+Conversion in progress, this may take a few minutes...
+For information on key differences with WSL 2 please visit https://aka.ms/wsl2
+Conversion complete.
