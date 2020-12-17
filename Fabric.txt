@@ -572,6 +572,177 @@ git clone https://github.com/hyperledger/blockchain-explorer.git
 
 
 
+//commercial-paper
+
+
+cd fabric-samples/commercial-paper/
+./network-starter.sh
+
+
+docker network inspect net_test       //test network
+[
+    {
+        "Name": "net_test",
+        "Id": "f35edb7395e6f1184137b64ef2a4f7c98b0b9a804cac9d74ca6391ba0c68b30b",
+        "Created": "2020-12-16T16:54:23.5442669Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.25.0.0/16",
+                    "Gateway": "172.25.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": true,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "06b140fd540d9e3d26278b9d9a7385e1ad4869a11e5335c51b503c7b42ca5cec": {
+                "Name": "couchdb0",
+                "EndpointID": "912b44cd42e2e4411a4a3c664037af9b53eef18d3bae3b37b7d8d55cccbfcc6a",
+                "MacAddress": "02:42:ac:19:00:05",
+                "IPv4Address": "172.25.0.5/16",
+                "IPv6Address": ""
+            },
+            "1a29adbf37cdcd5e9e7a300edc44e8e8459ae0e139480deb83d26a7fe1f98cda": {
+                "Name": "ca_orderer",
+                "EndpointID": "de848d13696f8eb94fe5ee3de901e072c8ead979e9f50afc5fd76805e82e1bb5",
+                "MacAddress": "02:42:ac:19:00:03",
+                "IPv4Address": "172.25.0.3/16",
+                "IPv6Address": ""
+            },
+            "77d98c287e4f9d356a1ab7149a5cd958e614096952835732d2339a17eb880e24": {
+                "Name": "orderer.example.com",
+                "EndpointID": "27cf143cde502f2b319856d5c17f471894ba540c565d5010c06bc45c73de0d91",
+                "MacAddress": "02:42:ac:19:00:07",
+                "IPv4Address": "172.25.0.7/16",
+                "IPv6Address": ""
+            },
+            "9340fcba9cfe8747ab3ec7840150d9ba464fb41ea4c268053b95d6cc40e31a5d": {
+                "Name": "peer0.org1.example.com",
+                "EndpointID": "3fee19d99b122b36433a28913c789a91ae09d6e3cb465016c5ef127b763e44fe",
+                "MacAddress": "02:42:ac:19:00:08",
+                "IPv4Address": "172.25.0.8/16",
+                "IPv6Address": ""
+            },
+            "b356d0ce746d879ba84cacf0a9d996c9a98ec2e2bf1a390d8de90f46aa83e832": {
+                "Name": "ca_org1",
+                "EndpointID": "1f453346019ef75c063fc1aafc4f1015c37d5b3b32df96b3da915450ee2496f4",
+                "MacAddress": "02:42:ac:19:00:04",
+                "IPv4Address": "172.25.0.4/16",
+                "IPv6Address": ""
+            },
+            "b5c93a58b0d25d66fe325e212054152a9130bc581d7b433bcbaef05fcbc778af": {
+                "Name": "peer0.org2.example.com",
+                "EndpointID": "2dd11231f4db778f0ac995ef58297fb6342bb0021ec0420eaacd9dff67e7d70c",
+                "MacAddress": "02:42:ac:19:00:09",
+                "IPv4Address": "172.25.0.9/16",
+                "IPv6Address": ""
+            },
+            "c03d8eda92b0f3e5567953f441e1088c13d3ce3a49d482af14ef82b8e3161ac6": {
+                "Name": "couchdb1",
+                "EndpointID": "ddd39ff9e26a4425cb47ac921fffd79d22fc03d3ed9de77e27fdcf69f36a4fa1",
+                "MacAddress": "02:42:ac:19:00:06",
+                "IPv4Address": "172.25.0.6/16",
+                "IPv6Address": ""
+            },
+            "ff1c550988409841449acb3ed0751568ab16d36035b962cec2c9d19b6c034d0c": {
+                "Name": "ca_org2",
+                "EndpointID": "438e3383c1cee239ad919fa63aed8791d06e34d76af399e7c963806a158e365b",
+                "MacAddress": "02:42:ac:19:00:02",
+                "IPv4Address": "172.25.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {
+            "com.docker.compose.network": "test",
+            "com.docker.compose.project": "net",
+            "com.docker.compose.version": "1.27.4"
+        }
+    }
+]
+
+
+
+//MagnetoCorp monitor PaperNet
+
+cd commercial-paper/organization/magnetocorp/configuration/cli
+./monitordocker.sh net_test
+
+Starting monitoring on all containers on the network net_test
+2f1609b01d7927b2873b4b1ee5b0ce9059537fd90502056ab344e0313c463d44
+
+
+
+//install and deploy chaincode
+
+
+	//magnetocorp admin
+
+cd fabric-samples/commercial-paper/organization/magnetocorp
+
+source magnetocorp.sh   //set environment varibles
+
+peer lifecycle chaincode package cp.tar.gz --lang node --path ./contract --label cp_0
+peer lifecycle chaincode install cp.tar.gz
+peer lifecycle chaincode queryinstalled   //query package identifier
+
+Installed chaincodes on peer:
+Package ID: cp_0:ddca913c004eb34f36dfb0b4c0bcc6d4afc1fa823520bb5966a3bfcf1808f40a, Label: cp_0
+
+
+//set env varibles of next package identifier
+export PACKAGE_ID=cp_0:ddca913c004eb34f36dfb0b4c0bcc6d4afc1fa823520bb5966a3bfcf1808f40a
+peer lifecycle chaincode approveformyorg --orderer localhost:7050 --ordererTLSHostnameOverride orderer.example.com --channelID mychannel --name papercontract -v 0 --package-id $PACKAGE_ID --sequence 1 --tls --cafile $ORDERER_CA
+
+2020-12-17 00:28:31.974 +07 [chaincodeCmd] ClientWait -> INFO 001 txid [3fc6c4ccd8a132f720014ab38030a3af6940d841b516cbe8142bdf16eb67992f] committed with status (VALID) at localhost:9051
+
+
+
+
+	//digitalbank admin
+
+cd commercial-paper/organization/digibank/
+source digibank.sh
+peer lifecycle chaincode package cp.tar.gz --lang node --path ./contract --label cp_0
+peer lifecycle chaincode install cp.tar.gz
+peer lifecycle chaincode queryinstalled
+
+2020-12-17 10:35:31.097 +07 [cli.lifecycle.chaincode] submitInstallProposal -> INFO 001 Installed remotely: response:<status:200 payload:"\nEcp_0:ddca913c004eb34f36dfb0b4c0bcc6d4afc1fa823520bb5966a3bfcf1808f40a\022\004cp_0" >
+2020-12-17 10:35:31.097 +07 [cli.lifecycle.chaincode] submitInstallProposal -> INFO 002 Chaincode code package identifier: cp_0:ddca913c004eb34f36dfb0b4c0bcc6d4afc1fa823520bb5966a3bfcf1808f40a
+
+//Save the package ID as an environment variable
+export PACKAGE_ID=cp_0:ddca913c004eb34f36dfb0b4c0bcc6d4afc1fa823520bb5966a3bfcf1808f40a
+
+peer lifecycle chaincode approveformyorg --orderer localhost:7050 --ordererTLSHostnameOverride orderer.example.com --channelID mychannel --name papercontract -v 0 --package-id $PACKAGE_ID --sequence 1 --tls --cafile $ORDERER_CA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
